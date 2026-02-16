@@ -5,7 +5,7 @@ for (let i = 0; i < 16; i++) {
     let div = document.createElement("div");
     div.setAttribute(
       "style",
-      "height: 16px; width: 16px; background-color: green; margin: 10px 8px;",
+      "width: calc(100% / 16); height: calc(100% / 16); border: 1px solid green; ",
     );
 
     container.appendChild(div);
