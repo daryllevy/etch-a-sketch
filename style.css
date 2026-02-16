@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 1440px;
+}
+
+.container {
+  /* background-color: aqua; */
+  width: 520px;
+  margin: 16px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
