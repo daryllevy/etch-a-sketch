@@ -61,10 +61,10 @@ btnClear.addEventListener("click", () => {
 btnRainbow.addEventListener("click", () => {
   if (currentMode === "rainbow") {
     currentMode = "black";
-    btnRainbow.classList.remove("rainbow-color");
+    btnRainbow.classList.toggle("rainbow-color");
   } else if (currentMode === "black") {
     currentMode = "rainbow";
-    btnRainbow.classList.add("rainbow-color");
+    btnRainbow.classList.toggle("rainbow-color");
   }
 });
 
