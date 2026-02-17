@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -8,9 +9,21 @@ body {
 }
 
 .container {
-  /* background-color: aqua; */
   width: 520px;
+  height: 520px;
   margin: 16px auto;
   display: flex;
   flex-wrap: wrap;
+}
+
+button {
+  display: block;
+  margin: 12px auto;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: green;
+  color: #fff;
 }
