@@ -8,12 +8,21 @@ body {
   max-width: 1440px;
 }
 
+.sketch {
+  border: 2px Solid red;
+  margin: 16px auto;
+  width: 420px;
+  height: 420px;
+  background-color: red;
+}
+
 .container {
-  width: 520px;
-  height: 520px;
+  width: 320px;
+  height: 320px;
   margin: 16px auto;
   display: flex;
   flex-wrap: wrap;
+  background-color: #fff;
 }
 
 button {
