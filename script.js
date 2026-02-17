@@ -1,19 +1,18 @@
 const container = document.querySelector(".container");
 const buttonNew = document.querySelector(".btn-new");
 const btnClear = document.querySelector(".clear");
+const btnRainbow = document.querySelector(".rainbow");
+let currentMode = "black";
 
-/// Grille initiale
-function showInitialGrid() {
-  for (let i = 0; i < 16; i++) {
-    for (let j = 0; j < 16; j++) {
+/// Fonction pour avoir une grid
+function MakeGrid(number = 16) {
+  for (let i = 0; i < number; i++) {
+    for (let j = 0; j < number; j++) {
       let div = document.createElement("div");
       div.setAttribute(
         "style",
-        `width: calc(100% / 16); height: calc(100% / 16); border: 1px solid #0e0c0c85; `,
+        `width: calc(100% / ${number}); height: calc(100% / ${number}); border: 1px solid #0e0c0c85; `,
       );
-      div.addEventListener("mouseover", () => {
-        div.style.backgroundColor = `#000`;
-      });
 
       container.appendChild(div);
     }
@@ -25,19 +24,13 @@ function createGrid(number) {
   for (let i = 0; i < number; i++) {
     for (let j = 0; j < number; j++) {
       let div = document.createElement("div");
-      //Les variables pour obtenir aléatoirement les couleurs
-      let red = getRandomColor();
-      let green = getRandomColor();
-      let blue = getRandomColor();
 
       div.setAttribute(
         "style",
         `width: calc(100% / ${number}); height: calc(100% / ${number}); border: 1px solid green; `,
       );
 
-      div.addEventListener("mouseover", () => {
-        div.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-      });
+      div.addEventListener("mouseover", () => {});
       container.appendChild(div);
     }
   }
@@ -55,13 +48,40 @@ buttonNew.addEventListener("click", () => {
 
   console.log(numberGrid);
   container.textContent = "";
-  createGrid(numberGrid);
+  MakeGrid(numberGrid);
 });
 
 //Evènement pour clear la grille
 btnClear.addEventListener("click", () => {
   container.textContent = "";
-  showInitialGrid();
+  MakeGrid();
 });
 
-showInitialGrid();
+// Evènement pour avoir les couleurs aléatoires
+btnRainbow.addEventListener("click", () => {
+  if (currentMode === "rainbow") {
+    currentMode = "black";
+    btnRainbow.classList.remove("rainbow-color");
+  } else if (currentMode === "black") {
+    currentMode = "rainbow";
+    btnRainbow.classList.add("rainbow-color");
+  }
+});
+
+//Evènement pour dessiner
+container.addEventListener("mouseover", (e) => {
+  let target = e.target;
+
+  if (currentMode === "black") {
+    target.style.backgroundColor = "#000";
+  } else if (currentMode === "rainbow") {
+    //Les variables pour obtenir aléatoirement les couleurs
+    let red = getRandomColor();
+    let green = getRandomColor();
+    let blue = getRandomColor();
+
+    target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+  }
+});
+
+MakeGrid();
