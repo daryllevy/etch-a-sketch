@@ -6,33 +6,51 @@
 
 body {
   max-width: 1440px;
+  background-color: rgb(242, 243, 247);
 }
 
 .sketch {
-  border: 2px Solid red;
-  margin: 16px auto;
-  width: 420px;
-  height: 420px;
-  background-color: red;
+  margin: 18px auto;
+  width: 750px;
+  height: 520px;
+  background-color: rgb(207, 0, 0);
+  box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .container {
-  width: 320px;
-  height: 320px;
+  width: 592px;
+  height: 362px;
   margin: 16px auto;
   display: flex;
   flex-wrap: wrap;
-  background-color: #fff;
+  background-color: rgb(192, 192, 192);
+ 
 }
 
-button {
-  display: block;
-  margin: 12px auto;
-  padding: 8px 16px;
-  border-radius: 10px;
+.btns-top {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 8px 0px;
+}
+
+.clear,
+.eraser,
+.pick-up,
+.rainbow,
+.btn-new {
+  padding: 3px 5px;
+  border-radius: 5px;
   font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+.btn-new {
+  display: block;
+  margin: 12px auto;
+
   background-color: green;
   color: #fff;
 }
