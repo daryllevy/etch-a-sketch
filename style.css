@@ -18,6 +18,11 @@ body {
   border-radius: 10px;
 }
 
+h1 {
+  text-align: center;
+  padding-top: 10px;
+}
+
 .container {
   width: 592px;
   height: 362px;
@@ -25,7 +30,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   background-color: rgb(192, 192, 192);
- 
 }
 
 .btns-top {
@@ -53,4 +57,19 @@ body {
 
   background-color: green;
   color: #fff;
+}
+
+/* CLASSES UTILITAIRES */
+.rainbow-color {
+  /* Rouge, Orange, Jaune, Vert, Bleu, Indigo, Violet */
+  background: linear-gradient(
+    to right,
+    #ff0000,
+    #ffa500,
+    #ffff00,
+    #008000,
+    #0000ff,
+    #4b0082,
+    #ee82ee
+  );
 }
