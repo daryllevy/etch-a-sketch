@@ -1,19 +1,22 @@
 const container = document.querySelector(".container");
-const button = document.querySelector("button");
+const buttonNew = document.querySelector(".btn-new");
+const btnClear = document.querySelector(".clear");
 
 /// Grille initiale
-for (let i = 0; i < 16; i++) {
-  for (let j = 0; j < 16; j++) {
-    let div = document.createElement("div");
-    div.setAttribute(
-      "style",
-      `width: calc(100% / 16); height: calc(100% / 16); border: 1px solid #0e0c0c85; `,
-    );
-    div.addEventListener("mouseover", () => {
-      div.style.backgroundColor = `#ccc`;
-    });
+function showInitialGrid() {
+  for (let i = 0; i < 16; i++) {
+    for (let j = 0; j < 16; j++) {
+      let div = document.createElement("div");
+      div.setAttribute(
+        "style",
+        `width: calc(100% / 16); height: calc(100% / 16); border: 1px solid #0e0c0c85; `,
+      );
+      div.addEventListener("mouseover", () => {
+        div.style.backgroundColor = `#000`;
+      });
 
-    container.appendChild(div);
+      container.appendChild(div);
+    }
   }
 }
 
@@ -45,7 +48,7 @@ function getRandomColor() {
   return Math.floor(Math.random() * (255 - 0 + 1) + 0);
 }
 
-button.addEventListener("click", () => {
+buttonNew.addEventListener("click", () => {
   const numberGrid = parseInt(
     prompt("How much square per side do you want ? (between 0 and 100) : "),
   );
@@ -54,3 +57,11 @@ button.addEventListener("click", () => {
   container.textContent = "";
   createGrid(numberGrid);
 });
+
+//Evènement pour clear la grille
+btnClear.addEventListener("click", () => {
+  container.textContent = "";
+  showInitialGrid();
+});
+
+showInitialGrid();
