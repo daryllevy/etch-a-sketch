@@ -1,22 +1,48 @@
 const container = document.querySelector(".container");
 const button = document.querySelector("button");
 
+/// Grille initiale
+for (let i = 0; i < 16; i++) {
+  for (let j = 0; j < 16; j++) {
+    let div = document.createElement("div");
+    div.setAttribute(
+      "style",
+      `width: calc(100% / 16); height: calc(100% / 16); border: 1px solid #0e0c0c85; `,
+    );
+    div.addEventListener("mouseover", () => {
+      div.style.backgroundColor = `#ccc`;
+    });
+
+    container.appendChild(div);
+  }
+}
+
 ///Fonction pour créer la grille
 function createGrid(number) {
   for (let i = 0; i < number; i++) {
     for (let j = 0; j < number; j++) {
       let div = document.createElement("div");
+      //Les variables pour obtenir aléatoirement les couleurs
+      let red = getRandomColor();
+      let green = getRandomColor();
+      let blue = getRandomColor();
+
       div.setAttribute(
         "style",
         `width: calc(100% / ${number}); height: calc(100% / ${number}); border: 1px solid green; `,
       );
 
       div.addEventListener("mouseover", () => {
-        div.style.backgroundColor = "#ccc";
+        div.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
       });
       container.appendChild(div);
     }
   }
+}
+
+/// Fonction pour obtenir une couleur aléatoire
+function getRandomColor() {
+  return Math.floor(Math.random() * (255 - 0 + 1) + 0);
 }
 
 button.addEventListener("click", () => {
