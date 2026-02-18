@@ -1,3 +1,4 @@
+const body = document.querySelector("body");
 const container = document.querySelector(".container");
 const buttonNew = document.querySelector(".btn-new");
 const btnClear = document.querySelector(".clear");
@@ -13,6 +14,7 @@ let btnRainbowPressed = "off"; // pour ajouter/supprimer la couleur d'arrière-p
 let grid = "on";
 let target = cursor.value;
 let color = "#000";
+let isBtnClicked = false;
 
 /// Fonction pour avoir une grid
 function makeGrid(number = 16) {
@@ -21,11 +23,7 @@ function makeGrid(number = 16) {
       let div = document.createElement("div");
       div.style.width = `calc(100% / ${number})`;
       div.style.height = `calc(100% / ${number})`;
-      if (grid === "on") {
-        div.classList.toggle("container-grid");
-      } else {
-        div.classList.toggle("container-grid");
-      }
+      div.classList.add("container-grid");
 
       container.appendChild(div);
     }
@@ -95,32 +93,46 @@ btnEraser.addEventListener("click", () => {
 btnToggle.addEventListener("click", () => {
   if (grid === "on") {
     grid = "off";
-    for (grid of container.children) {
-      grid.classList.toggle("container-grid");
+    for (let div of container.children) {
+      div.classList.toggle("container-grid");
     }
   } else {
     grid = "on";
-    for (grid of container.children) {
-      grid.classList.toggle("container-grid");
+    for (let div of container.children) {
+      div.classList.toggle("container-grid");
     }
   }
 });
 
+//Evènement pour savoir si le bouton de la souris est enfoncé
+body.addEventListener("mousedown", (e) => {
+  if (e.button == 0) {
+    isBtnClicked = true;
+    console.log("is drawing");
+  }
+});
+
+//Evènement pour savoir lorsqu'on arrête d'enfoncé le clique sur le bouton de la souris
+body.addEventListener("mouseup", () => {
+  isBtnClicked = false;
+});
+
 //Evènement pour dessiner dans la grille
 container.addEventListener("mouseover", (e) => {
-  let target = e.target;
+  if (isBtnClicked) {
+    let target = e.target;
+    if (currentMode === "color") {
+      target.style.backgroundColor = `${color}`;
+    } else if (currentMode === "rainbow") {
+      //Les variables pour obtenir aléatoirement les couleurs
+      let red = getRandomColor();
+      let green = getRandomColor();
+      let blue = getRandomColor();
 
-  if (currentMode === "color") {
-    target.style.backgroundColor = `${color}`;
-  } else if (currentMode === "rainbow") {
-    //Les variables pour obtenir aléatoirement les couleurs
-    let red = getRandomColor();
-    let green = getRandomColor();
-    let blue = getRandomColor();
-
-    target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-  } else if (currentMode === "eraser") {
-    target.style.backgroundColor = "";
+      target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+    } else if (currentMode === "eraser") {
+      target.style.backgroundColor = "";
+    }
   }
 });
 
