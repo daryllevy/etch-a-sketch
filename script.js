@@ -4,11 +4,14 @@ const btnClear = document.querySelector(".clear");
 const btnRainbow = document.querySelector(".rainbow");
 const btnEraser = document.querySelector(".eraser");
 const btnColor = document.getElementById("pick-color");
+const btnToggle = document.querySelector(".toggle");
 const cursor = document.getElementById("grid-proportion");
 let span = document.querySelector("span");
 span.textContent = `${cursor.value} x ${cursor.value}`;
 let currentMode = "color"; // pour le changement de mode de background-color des divs
 let btnRainbowPressed = "off"; // pour ajouter/supprimer la couleur d'arrière-plan du bouton Rainbow
+let grid = "on";
+let target = cursor.value;
 let color = "#000";
 
 /// Fonction pour avoir une grid
@@ -16,10 +19,13 @@ function makeGrid(number = 16) {
   for (let i = 0; i < number; i++) {
     for (let j = 0; j < number; j++) {
       let div = document.createElement("div");
-      div.setAttribute(
-        "style",
-        `width: calc(100% / ${number}); height: calc(100% / ${number}); border: 1px solid #0e0c0c85; `,
-      );
+      div.style.width = `calc(100% / ${number})`;
+      div.style.height = `calc(100% / ${number})`;
+      if (grid === "on") {
+        div.classList.toggle("container-grid");
+      } else {
+        div.classList.toggle("container-grid");
+      }
 
       container.appendChild(div);
     }
@@ -56,7 +62,7 @@ btnClear.addEventListener("click", () => {
     currentMode = "color";
   }
 
-  makeGrid();
+  makeGrid(target);
 });
 
 // Evènement pour avoir les couleurs aléatoires
@@ -82,6 +88,21 @@ btnEraser.addEventListener("click", () => {
   if (btnRainbowPressed === "on") {
     btnRainbowPressed = "off";
     btnRainbow.classList.remove("rainbow-color");
+  }
+});
+
+//Evènement pour retire le cadre de la grille
+btnToggle.addEventListener("click", () => {
+  if (grid === "on") {
+    grid = "off";
+    for (grid of container.children) {
+      grid.classList.toggle("container-grid");
+    }
+  } else {
+    grid = "on";
+    for (grid of container.children) {
+      grid.classList.toggle("container-grid");
+    }
   }
 });
 
