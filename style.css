@@ -51,13 +51,29 @@ h1 {
   text-transform: uppercase;
 }
 
-.btn-new {
-  display: block;
-  margin: 12px auto;
+.new-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  height: 5àpx;
+ 
+}
 
-  background-color: green;
+/* sTYLE DU CURSEUR  */
+#grid-proportion {
+  cursor: pointer;
+  appearance: none;
+  border-radius: 50px;
+  width: 25%;
+  box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.new-grid span { 
+   font-size: 20px;
+  font-weight: 600;
   color: #fff;
 }
+ 
 
 /* CLASSES UTILITAIRES */
 .rainbow-color {
