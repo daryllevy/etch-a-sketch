@@ -3,13 +3,16 @@ const buttonNew = document.querySelector(".btn-new");
 const btnClear = document.querySelector(".clear");
 const btnRainbow = document.querySelector(".rainbow");
 const btnEraser = document.querySelector(".eraser");
-const btnColor = document.querySelector("#pick-color");
+const btnColor = document.getElementById("pick-color");
+const cursor = document.getElementById("grid-proportion");
+let span = document.querySelector("span");
+span.textContent = `${cursor.value} x ${cursor.value}`;
 let currentMode = "color"; // pour le changement de mode de background-color des divs
 let btnRainbowPressed = "off"; // pour ajouter/supprimer la couleur d'arrière-plan du bouton Rainbow
 let color = "#000";
 
 /// Fonction pour avoir une grid
-function MakeGrid(number = 16) {
+function makeGrid(number = 16) {
   for (let i = 0; i < number; i++) {
     for (let j = 0; j < number; j++) {
       let div = document.createElement("div");
@@ -23,29 +26,26 @@ function MakeGrid(number = 16) {
   }
 }
 
+//Evènement pour modifier la taille de la grille
+cursor.addEventListener("input", (e) => {
+  target = e.target.value;
+  span.textContent = `${target} x ${target}`;
+  container.textContent = "";
+  makeGrid(target);
+});
+
 /// Fonction pour obtenir une couleur aléatoire
 function getRandomColor() {
   return Math.floor(Math.random() * (255 - 0 + 1) + 0);
 }
-
-/// Evènement pour créer une nouvelle grille
-buttonNew.addEventListener("click", () => {
-  const numberGrid = parseInt(
-    prompt("How much square per side do you want ? (between 0 and 100) : "),
-  );
-
-  console.log(numberGrid);
-  container.textContent = "";
-  MakeGrid(numberGrid);
-});
 
 // Evènement pour choisir la couleur
 btnColor.addEventListener("input", (e) => {
   currentMode = "color";
   color = e.target.value;
   if (btnRainbowPressed === "on") {
-    btnRainbowPressed= "off"
-    btnRainbow.classList.remove("rainbow-color")
+    btnRainbowPressed = "off";
+    btnRainbow.classList.remove("rainbow-color");
   }
 });
 
@@ -56,7 +56,7 @@ btnClear.addEventListener("click", () => {
     currentMode = "color";
   }
 
-  MakeGrid();
+  makeGrid();
 });
 
 // Evènement pour avoir les couleurs aléatoires
@@ -103,4 +103,4 @@ container.addEventListener("mouseover", (e) => {
   }
 });
 
-MakeGrid();
+makeGrid();
