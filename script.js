@@ -3,8 +3,10 @@ const buttonNew = document.querySelector(".btn-new");
 const btnClear = document.querySelector(".clear");
 const btnRainbow = document.querySelector(".rainbow");
 const btnEraser = document.querySelector(".eraser");
-let currentMode = "black";
-let btnRainbowPressed = "off";
+const btnColor = document.querySelector("#pick-color");
+let currentMode = "color"; // pour le changement de mode de background-color des divs
+let btnRainbowPressed = "off"; // pour ajouter/supprimer la couleur d'arrière-plan du bouton Rainbow
+let color = "#000";
 
 /// Fonction pour avoir une grid
 function MakeGrid(number = 16) {
@@ -37,11 +39,21 @@ buttonNew.addEventListener("click", () => {
   MakeGrid(numberGrid);
 });
 
+// Evènement pour choisir la couleur
+btnColor.addEventListener("input", (e) => {
+  currentMode = "color";
+  color = e.target.value;
+  if (btnRainbowPressed === "on") {
+    btnRainbowPressed= "off"
+    btnRainbow.classList.remove("rainbow-color")
+  }
+});
+
 //Evènement pour clear la grille
 btnClear.addEventListener("click", () => {
   container.textContent = "";
   if (currentMode === "eraser") {
-    currentMode = "black";
+    currentMode = "color";
   }
 
   MakeGrid();
@@ -54,10 +66,10 @@ btnRainbow.addEventListener("click", () => {
     btnRainbowPressed = "on";
     btnRainbow.classList.toggle("rainbow-color");
   } else if (currentMode === "rainbow") {
-    currentMode = "black";
+    currentMode = "color";
     btnRainbow.classList.toggle("rainbow-color");
     btnRainbowPressed = "off";
-  } else if (currentMode === "black") {
+  } else if (currentMode === "color") {
     currentMode = "rainbow";
     btnRainbow.classList.toggle("rainbow-color");
     btnRainbowPressed = "on";
@@ -77,8 +89,8 @@ btnEraser.addEventListener("click", () => {
 container.addEventListener("mouseover", (e) => {
   let target = e.target;
 
-  if (currentMode === "black") {
-    target.style.backgroundColor = "#000";
+  if (currentMode === "color") {
+    target.style.backgroundColor = `${color}`;
   } else if (currentMode === "rainbow") {
     //Les variables pour obtenir aléatoirement les couleurs
     let red = getRandomColor();
