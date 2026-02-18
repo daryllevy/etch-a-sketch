@@ -2,7 +2,9 @@ const container = document.querySelector(".container");
 const buttonNew = document.querySelector(".btn-new");
 const btnClear = document.querySelector(".clear");
 const btnRainbow = document.querySelector(".rainbow");
+const btnEraser = document.querySelector(".eraser");
 let currentMode = "black";
+let btnRainbowPressed = "off";
 
 /// Fonction pour avoir une grid
 function MakeGrid(number = 16) {
@@ -19,28 +21,12 @@ function MakeGrid(number = 16) {
   }
 }
 
-///Fonction pour créer la grille
-function createGrid(number) {
-  for (let i = 0; i < number; i++) {
-    for (let j = 0; j < number; j++) {
-      let div = document.createElement("div");
-
-      div.setAttribute(
-        "style",
-        `width: calc(100% / ${number}); height: calc(100% / ${number}); border: 1px solid green; `,
-      );
-
-      div.addEventListener("mouseover", () => {});
-      container.appendChild(div);
-    }
-  }
-}
-
 /// Fonction pour obtenir une couleur aléatoire
 function getRandomColor() {
   return Math.floor(Math.random() * (255 - 0 + 1) + 0);
 }
 
+/// Evènement pour créer une nouvelle grille
 buttonNew.addEventListener("click", () => {
   const numberGrid = parseInt(
     prompt("How much square per side do you want ? (between 0 and 100) : "),
@@ -54,21 +40,40 @@ buttonNew.addEventListener("click", () => {
 //Evènement pour clear la grille
 btnClear.addEventListener("click", () => {
   container.textContent = "";
+  if (currentMode === "eraser") {
+    currentMode = "black";
+  }
+
   MakeGrid();
 });
 
 // Evènement pour avoir les couleurs aléatoires
 btnRainbow.addEventListener("click", () => {
-  if (currentMode === "rainbow") {
+  if (currentMode === "eraser") {
+    currentMode = "rainbow";
+    btnRainbowPressed = "on";
+    btnRainbow.classList.toggle("rainbow-color");
+  } else if (currentMode === "rainbow") {
     currentMode = "black";
     btnRainbow.classList.toggle("rainbow-color");
+    btnRainbowPressed = "off";
   } else if (currentMode === "black") {
     currentMode = "rainbow";
     btnRainbow.classList.toggle("rainbow-color");
+    btnRainbowPressed = "on";
   }
 });
 
-//Evènement pour dessiner
+/// Evènement pour le bouton gomme
+btnEraser.addEventListener("click", () => {
+  currentMode = "eraser";
+  if (btnRainbowPressed === "on") {
+    btnRainbowPressed = "off";
+    btnRainbow.classList.remove("rainbow-color");
+  }
+});
+
+//Evènement pour dessiner dans la grille
 container.addEventListener("mouseover", (e) => {
   let target = e.target;
 
@@ -81,6 +86,8 @@ container.addEventListener("mouseover", (e) => {
     let blue = getRandomColor();
 
     target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+  } else if (currentMode === "eraser") {
+    target.style.backgroundColor = "";
   }
 });
 
