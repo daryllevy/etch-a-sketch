@@ -1,6 +1,5 @@
 const body = document.querySelector("body");
 const container = document.querySelector(".container");
-const buttonNew = document.querySelector(".btn-new");
 const btnClear = document.querySelector(".clear");
 const btnRainbow = document.querySelector(".rainbow");
 const btnEraser = document.querySelector(".eraser");
@@ -13,7 +12,7 @@ let currentMode = "color"; // pour le changement de mode de background-color des
 let btnRainbowPressed = "off"; // pour ajouter/supprimer la couleur d'arrière-plan du bouton Rainbow
 let grid = "on";
 let target = cursor.value;
-let color = "#000";
+let color = btnColor.value;
 let isBtnClicked = false;
 
 /// Fonction pour avoir une grid
@@ -43,14 +42,37 @@ function getRandomColor() {
   return Math.floor(Math.random() * (255 - 0 + 1) + 0);
 }
 
+// Fonction pour désélectionner le bouton rainbow
+function toggleBtnRainbow() {
+  if (btnRainbowPressed === "on") {
+    btnRainbowPressed = "off";
+    btnRainbow.classList.remove("rainbow-color");
+  } else {
+    btnRainbowPressed = "on";
+    btnRainbow.classList.remove("rainbow-color");
+  }
+}
+
+// fonction pour toggle la grille
+function toggleGrid() {
+  if (grid === "on") {
+    grid = "off";
+    for (let div of container.children) {
+      div.classList.toggle("container-grid");
+    }
+  } else {
+    grid = "on";
+    for (let div of container.children) {
+      div.classList.toggle("container-grid");
+    }
+  }
+}
+
 // Evènement pour choisir la couleur
 btnColor.addEventListener("input", (e) => {
   currentMode = "color";
   color = e.target.value;
-  if (btnRainbowPressed === "on") {
-    btnRainbowPressed = "off";
-    btnRainbow.classList.remove("rainbow-color");
-  }
+  toggleBtnRainbow();
 });
 
 //Evènement pour clear la grille
@@ -83,26 +105,11 @@ btnRainbow.addEventListener("click", () => {
 /// Evènement pour le bouton gomme
 btnEraser.addEventListener("click", () => {
   currentMode = "eraser";
-  if (btnRainbowPressed === "on") {
-    btnRainbowPressed = "off";
-    btnRainbow.classList.remove("rainbow-color");
-  }
+  toggleBtnRainbow();
 });
 
 //Evènement pour retire le cadre de la grille
-btnToggle.addEventListener("click", () => {
-  if (grid === "on") {
-    grid = "off";
-    for (let div of container.children) {
-      div.classList.toggle("container-grid");
-    }
-  } else {
-    grid = "on";
-    for (let div of container.children) {
-      div.classList.toggle("container-grid");
-    }
-  }
-});
+btnToggle.addEventListener("click", toggleGrid);
 
 //Evènement pour savoir si le bouton de la souris est enfoncé
 body.addEventListener("mousedown", (e) => {
@@ -119,19 +126,21 @@ body.addEventListener("mouseup", () => {
 
 //Evènement pour dessiner dans la grille
 container.addEventListener("mouseover", (e) => {
-  if (isBtnClicked) {
-    let target = e.target;
-    if (currentMode === "color") {
-      target.style.backgroundColor = `${color}`;
-    } else if (currentMode === "rainbow") {
-      //Les variables pour obtenir aléatoirement les couleurs
-      let red = getRandomColor();
-      let green = getRandomColor();
-      let blue = getRandomColor();
+  let target = e.target;
+  if (target != e.currentTarget) {
+    if (isBtnClicked) {
+      if (currentMode === "color") {
+        target.style.backgroundColor = `${color}`;
+      } else if (currentMode === "rainbow") {
+        //Les variables pour obtenir aléatoirement les couleurs
+        let red = getRandomColor();
+        let green = getRandomColor();
+        let blue = getRandomColor();
 
-      target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-    } else if (currentMode === "eraser") {
-      target.style.backgroundColor = "";
+        target.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
+      } else if (currentMode === "eraser") {
+        target.style.backgroundColor = "";
+      }
     }
   }
 });
