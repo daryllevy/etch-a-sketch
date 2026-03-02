@@ -145,4 +145,9 @@ container.addEventListener("mouseover", (e) => {
   }
 });
 
+// Fonction pour enlever le défilement sur la grille lorsqu'on dessine (mobile)
+container.addEventListener("touchmove", (e) => e.preventDefault(), {
+  passive: false,
+});
+
 makeGrid();
