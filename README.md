@@ -16,3 +16,5 @@ J'ai réalisé ce projet avec ces technologies classiques du web :
 - HTML : Pour la structure du projet
 - CSS : Pour le style et la mise en forme
 - JavaScript : pour la manipulation du DOM et rendre les choses dynamiques
+
+<p style= "margin-top: 30px;">A ouvrir sur pc pour une meilleure expérience</p>
