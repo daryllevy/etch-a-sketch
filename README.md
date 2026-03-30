@@ -18,3 +18,4 @@ J'ai réalisé ce projet avec ces technologies classiques du web :
 - JavaScript : pour la manipulation du DOM et rendre les choses dynamiques
 
 <p style= "margin-top: 30px;">A ouvrir sur pc pour une meilleure expérience</p>
+<p><a href="https://daryllevy.github.io/etch-a-sketch/">Demo ici 👈</a></p>
